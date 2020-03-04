@@ -90,7 +90,7 @@ public class CustomerRepository_Test {
     }
 
     @Test
-    @DisplayName("find customer by criteria has username is milli should found only milli")
+    @DisplayName("find customer by criteria username is milli should found only milli")
     public void find_customer_by_criteria_has_username() {
         CustomerSearchCriteria criteria = new CustomerSearchCriteria();
         criteria.setUserName("milli");
@@ -99,10 +99,20 @@ public class CustomerRepository_Test {
     }
 
     @Test
-    @DisplayName("find customer by criteria has age is twenty five should found only violette")
+    @DisplayName("find customer by criteria age is twenty five should found only violette")
     public void find_customer_by_criteria_has_age() {
         CustomerSearchCriteria criteria = new CustomerSearchCriteria();
         criteria.setAge(25);
+        List<Customer> actual = customerRepository.findAll(CustomerSpecification.searchByCriteria(criteria));
+        assertEquals(1, actual.size());
+    }
+
+    @Test
+    @DisplayName("find customer by criteria username is ink and age is twenty should found only ink")
+    public void find_customer_by_criteria_username_and_age() {
+        CustomerSearchCriteria criteria = new CustomerSearchCriteria();
+        criteria.setUserName("ink");
+        criteria.setAge(20);
         List<Customer> actual = customerRepository.findAll(CustomerSpecification.searchByCriteria(criteria));
         assertEquals(1, actual.size());
     }
